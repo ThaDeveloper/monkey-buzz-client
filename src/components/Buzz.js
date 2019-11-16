@@ -45,7 +45,6 @@ export class Buzz extends Component {
                 image={userImage}
                 title="Profile image"
                 className={classes.image} />
-                {console.log(userHandle)}
                 <CardContent className={classes.content}>
                     <Typography variant="h5" 
                         component={Link}

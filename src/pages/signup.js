@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 import AppIcon from "../images/favicon.png";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signupUser } from "../redux/actions/userActions";

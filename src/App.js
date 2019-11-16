@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -42,7 +42,7 @@ function App() {
           <Navbar/>
           <div className="container">
           <Switch>
-            <AuthRoute exact path="/" component={Home} />
+            <Route exact path="/" component={Home} />
             <AuthRoute path="/signup" component={Signup} />
             <AuthRoute path="/login" component={Login} />
           </Switch>
