@@ -9,7 +9,6 @@ import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 //Icons
-import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
 import Notifications from "@material-ui/icons/Notifications";
 

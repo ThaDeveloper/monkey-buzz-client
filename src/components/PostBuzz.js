@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { postBuzz } from "../redux/actions/dataActions";
+import { postBuzz, clearErrors } from "../redux/actions/dataActions";
 import MyButton from "../utils/MyButton";
 //Redux
 import { connect } from "react-redux";
@@ -19,15 +19,17 @@ import CloseIcon from "@material-ui/icons/Close";
 const styles = theme => ({
   ...theme.toSpread,
   submitButton: {
-    position: "relative"
+    position: "relative",
+    float: "right",
+    marginTop: 10
   },
   progressSpinner: {
     position: "absolute"
   },
   closeButton: {
     position: "absolute",
-    left: "90%",
-    top: "10%"
+    left: "91%",
+    top: "3%"
   }
 });
 
@@ -44,9 +46,8 @@ class PostBuzz extends Component {
         errors: nextProps.UI.errors
       });
     }
-    if(!nextProps.UI.errors && !nextProps.UI.loading){
-        this.setState({ body: ''});
-        this.handleClose();
+    if (!nextProps.UI.errors && !nextProps.UI.loading) {
+      this.setState({ body: "", open: false, errors: {} });
     }
   }
   handleOpen = () => {
@@ -56,6 +57,7 @@ class PostBuzz extends Component {
   };
 
   handleClose = () => {
+    this.props.clearErrors();
     this.setState({
       open: false,
       errors: {}
@@ -136,12 +138,13 @@ class PostBuzz extends Component {
 
 PostBuzz.propTypes = {
   postBuzz: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   UI: state.UI
 });
 
-export default connect(mapStateToProps, { postBuzz })(
+export default connect(mapStateToProps, { postBuzz, clearErrors })(
   withStyles(styles)(PostBuzz)
 );
