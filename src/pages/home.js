@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+import { getBuzzes } from '../redux/actions/dataActions';
 
 import Buzz from '../components/Buzz';
 import Profile from '../components/Profile';
 
-export default class Home extends Component {
-    state = {
-        buzzes: null
-    }
+class Home extends Component {
     componentDidMount(){
-        axios.get('/buzzes')
-        .then(res =>{
-            this.setState({
-                buzzes: res.data
-            })
-        })
-        .catch(err => console.log(err))
+        this.props.getBuzzes();
     }
     render() {
-        let recentBuzzesMarkup = this.state.buzzes ? (
-            this.state.buzzes.map(buzz => <Buzz key={buzz.buzzId} buzz={buzz}/>)
+        const { buzzes, loading } = this.props.data;
+        let recentBuzzesMarkup = !loading ? (
+            buzzes.map(buzz => <Buzz key={buzz.buzzId} buzz={buzz}/>)
         ): <p>Loading...</p>
         return (
             <Grid container spacing={10}>
@@ -31,6 +25,17 @@ export default class Home extends Component {
                     <Profile />
                 </Grid>
             </Grid>
-        )
+        );
     }
 }
+
+Home.propTypes = {
+    getBuzzes: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    data: state.data
+});
+
+export default connect(mapStateToProps, { getBuzzes })(Home);
