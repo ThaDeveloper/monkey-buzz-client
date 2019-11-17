@@ -3,7 +3,11 @@ import {
   LOADING_DATA,
   LIKE_BUZZ,
   UNLIKE_BUZZ,
-  DELETE_BUZZ
+  DELETE_BUZZ,
+  LOADING_UI,
+  CLEAR_ERRORS,
+  SET_ERRORS,
+  POST_BUZZ
 } from "../types";
 import axios from "axios";
 
@@ -25,6 +29,25 @@ export const getBuzzes = () => dispatch => {
       });
     });
 };
+
+// post buzz
+export const postBuzz = newBuzz => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios.post('/buzzes', newBuzz)
+    .then(res => {
+      dispatch({
+        type: POST_BUZZ,
+        payload: res.data
+      });
+      dispatch({ type: CLEAR_ERRORS});
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      })
+    });
+}
 
 //like buzz
 export const likeBuzz = buzzId => dispatch => {

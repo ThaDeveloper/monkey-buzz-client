@@ -3,7 +3,8 @@ import {
   LOADING_DATA,
   LIKE_BUZZ,
   UNLIKE_BUZZ,
-  DELETE_BUZZ
+  DELETE_BUZZ,
+  POST_BUZZ
 } from "../types";
 
 const initialState = {
@@ -44,6 +45,14 @@ export default (state = initialState, action) => {
       return {
         ...state
       };
+    case POST_BUZZ:
+      return {
+        ...state,
+        buzzes: [
+          action.payload,//add the new post at the top of array
+          ...state.buzzes
+        ]
+      }
     default:
       return state;
   }
