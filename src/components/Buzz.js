@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { likeBuzz, unlikeBuzz } from "../redux/actions/dataActions";
 import MyButton from "../utils/MyButton";
+import DeleteBuzz from "./DeleteBuzz";
 //MUI
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -19,6 +20,7 @@ import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 const styles = {
   card: {
+    position: "relative",
     display: "flex",
     marginBottom: 20
   },
@@ -61,7 +63,10 @@ export class Buzz extends Component {
         likeCount,
         commentCount
       },
-      user: { authenticated }
+      user: {
+        authenticated,
+        credentials: { handle }
+      }
     } = this.props;
     const likeButton = !authenticated ? (
       <MyButton tip="Like">
@@ -78,6 +83,10 @@ export class Buzz extends Component {
         <FavoriteBorder color="primary" />
       </MyButton>
     );
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeleteBuzz buzzId={buzzId} />
+      ) : null;
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -94,6 +103,7 @@ export class Buzz extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>

@@ -1,4 +1,10 @@
-import { SET_BUZZES, LOADING_DATA, LIKE_BUZZ, UNLIKE_BUZZ } from "../types";
+import {
+  SET_BUZZES,
+  LOADING_DATA,
+  LIKE_BUZZ,
+  UNLIKE_BUZZ,
+  DELETE_BUZZ
+} from "../types";
 
 const initialState = {
   buzzes: [],
@@ -25,6 +31,16 @@ export default (state = initialState, action) => {
         buzz => buzz.buzzId === action.payload.buzzId
       );
       state.buzzes[index] = action.payload;
+      return {
+        ...state
+      };
+    case DELETE_BUZZ:
+      // accessing `index` var alredy declared above result to `can't access lexical declaration 
+      //`index' before initialization` hence the need to rename the var
+      let buzzIndex = state.buzzes.findIndex(
+        buzz => buzz.buzzId === action.payload
+      );
+      state.buzzes.splice(buzzIndex, 1);
       return {
         ...state
       };
