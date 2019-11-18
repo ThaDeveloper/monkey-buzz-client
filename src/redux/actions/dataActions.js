@@ -7,7 +7,9 @@ import {
   LOADING_UI,
   CLEAR_ERRORS,
   SET_ERRORS,
-  POST_BUZZ
+  POST_BUZZ,
+  SET_BUZZ,
+  STOP_LOADING
 } from "../types";
 import axios from "axios";
 
@@ -29,6 +31,22 @@ export const getBuzzes = () => dispatch => {
       });
     });
 };
+
+//get buzz
+export const getBuzz = buzzId => dispatch => {
+  dispatch({ type: LOADING_UI});
+  axios.get(`/buzzes/${buzzId}`)
+    .then(res => {
+      dispatch({
+        type: SET_BUZZ,
+        payload: res.data
+      });
+      dispatch({ type: STOP_LOADING });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
 
 // post buzz
 export const postBuzz = newBuzz => dispatch => {

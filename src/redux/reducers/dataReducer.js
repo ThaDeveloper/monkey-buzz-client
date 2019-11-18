@@ -4,7 +4,8 @@ import {
   LIKE_BUZZ,
   UNLIKE_BUZZ,
   DELETE_BUZZ,
-  POST_BUZZ
+  POST_BUZZ,
+  SET_BUZZ
 } from "../types";
 
 const initialState = {
@@ -26,12 +27,21 @@ export default (state = initialState, action) => {
         loading: false,
         buzzes: action.payload
       };
+    case SET_BUZZ:
+      return {
+        ...state,
+        buzz: action.payload
+      }
     case LIKE_BUZZ:
     case UNLIKE_BUZZ:
       let index = state.buzzes.findIndex(
         buzz => buzz.buzzId === action.payload.buzzId
       );
       state.buzzes[index] = action.payload;
+      // update the buzz liked in the buzz dialog
+      if(state.buzz.buzzId === action.payload.buzzId){
+        state.buzz = action.payload
+      }
       return {
         ...state
       };
