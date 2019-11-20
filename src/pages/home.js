@@ -7,7 +7,7 @@ import { getBuzzes } from '../redux/actions/dataActions';
 import Buzz from '../components/buzzes/Buzz';
 import Profile from '../components/profile/Profile';
 
-class Home extends Component {
+class home extends Component {
     componentDidMount(){
         this.props.getBuzzes();
     }
@@ -29,7 +29,7 @@ class Home extends Component {
     }
 }
 
-Home.propTypes = {
+home.propTypes = {
     getBuzzes: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired
 }
@@ -38,4 +38,4 @@ const mapStateToProps = state => ({
     data: state.data
 });
 
-export default connect(mapStateToProps, { getBuzzes })(Home);
+export default connect(mapStateToProps, { getBuzzes })(home);

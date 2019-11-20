@@ -8,15 +8,16 @@ import store from "./redux/store";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
-import Login from "./pages/login";
-import Signup from "./pages/signup";
-import Home from "./pages/home";
+import login from "./pages/login";
+import signup from "./pages/signup";
+import home from "./pages/home";
 import Navbar from "./components/layout/Navbar";
 import themeFile from "./utils/theme";
 import AuthRoute from "./utils/AuthRoute";
 import { SET_AUTHENTICATED } from "./redux/types";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 import axios from "axios";
+import user from "./pages/user";
 
 const theme = createMuiTheme(themeFile);
 
@@ -43,9 +44,10 @@ function App() {
           <Navbar />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Home} />
-              <AuthRoute path="/signup" component={Signup} />
-              <AuthRoute path="/login" component={Login} />
+              <Route exact path="/" component={home} />
+              <AuthRoute exact path="/signup" component={signup} />
+              <AuthRoute exact path="/login" component={login} />
+              <Route exact path="/user/:handle" component={user} />
             </Switch>
           </div>
         </Router>

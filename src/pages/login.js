@@ -16,7 +16,7 @@ const styles = theme => ({
   ...theme.toSpread
 });
 
-class Login extends Component {
+class login extends Component {
   state = {
     email: "",
     password: "",
@@ -115,7 +115,7 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
+login.propTypes = {
   classes: PropTypes.object.isRequired,
   loginUser: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
@@ -133,4 +133,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyles(styles)(Login));
+)(withStyles(styles)(login));
