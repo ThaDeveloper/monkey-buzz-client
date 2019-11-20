@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import { getBuzzes } from '../redux/actions/dataActions';
 
-import Buzz from '../components/Buzz';
-import Profile from '../components/Profile';
+import Buzz from '../components/buzzes/Buzz';
+import Profile from '../components/profile/Profile';
 
 class Home extends Component {
     componentDidMount(){

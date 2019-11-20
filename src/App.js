@@ -11,7 +11,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Home from "./pages/home";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layout/Navbar";
 import themeFile from "./utils/theme";
 import AuthRoute from "./utils/AuthRoute";
 import { SET_AUTHENTICATED } from "./redux/types";

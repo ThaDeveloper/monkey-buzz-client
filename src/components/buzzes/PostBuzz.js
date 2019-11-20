@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { postBuzz, clearErrors } from "../redux/actions/dataActions";
-import MyButton from "../utils/MyButton";
+import { postBuzz, clearErrors } from "../../redux/actions/dataActions";
+import MyButton from "../../utils/MyButton";
 //Redux
 import { connect } from "react-redux";
 

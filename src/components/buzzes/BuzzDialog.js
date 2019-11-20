@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { postBuzz, clearErrors } from "../redux/actions/dataActions";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import LikeButton from "./LikeButton";
+import Comments from "./Comments";
 //MUI
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -19,15 +18,10 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ChatIcon from "@material-ui/icons/Chat";
 //redux
 import { connect } from "react-redux";
-import { getBuzz } from "../redux/actions/dataActions";
-
+import { getBuzz } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.toSpread,
-  invisibleSeparator: {
-    border: "none",
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -35,20 +29,20 @@ const styles = theme => ({
     objectFit: "cover" // incase ration doesn't macth 1:1
   },
   dialogContent: {
-    padding: 20
+    padding: 50
   },
   closeButton: {
     position: "absolute",
     left: "91%"
   },
   expandButton: {
-      position: 'absolute',
-      left: '90%'
+    position: "absolute",
+    left: "90%"
   },
   spinnerDiv: {
-      textAlign: 'center',
-      marginTop: 50,
-      marginBottom: 50
+    textAlign: "center",
+    marginTop: 50,
+    marginBottom: 50
   }
 });
 
@@ -75,14 +69,15 @@ class BuzzDialog extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
     const dialogMarkup = loading ? (
-        <div className={classes.spinnerDiv}>
-            <CircularProgress size={200} thickness={2} />
-        </div>
+      <div className={classes.spinnerDiv}>
+        <CircularProgress size={200} thickness={2} />
+      </div>
     ) : (
       <Grid container spacing={10}>
         <Grid item sm={5}>
@@ -110,6 +105,8 @@ class BuzzDialog extends Component {
           </MyButton>
           <span>{commentCount} comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator} />
+        <Comments comments={comments} />
       </Grid>
     );
     return (

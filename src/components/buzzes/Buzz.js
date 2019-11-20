@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 import DeleteBuzz from "./DeleteBuzz";
 import BuzzDialog from "./BuzzDialog";
 import LikeButton from "./LikeButton";

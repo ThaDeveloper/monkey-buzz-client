@@ -4,9 +4,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-import { logoutUser, uploadImage } from "../redux/actions/userActions";
+import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 // MUI
 import Button from "@material-ui/core/Button";
 import MuiLink from "@material-ui/core/Link";
