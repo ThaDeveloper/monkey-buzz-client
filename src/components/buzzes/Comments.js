@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 //MUI
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import theme from "../../utils/theme";
-import { create } from "istanbul-reports";
 import dayjs from "dayjs";
 
-const styles = them => ({
+const styles = theme => ({
   ...theme.toSpread,
   commentImage: {
     maxWidth: "100%",

@@ -5,7 +5,8 @@ import {
   UNLIKE_BUZZ,
   DELETE_BUZZ,
   POST_BUZZ,
-  SET_BUZZ
+  SET_BUZZ,
+  SUBMIT_COMMENT
 } from "../types";
 
 const initialState = {
@@ -62,6 +63,14 @@ export default (state = initialState, action) => {
           action.payload,//add the new post at the top of array
           ...state.buzzes
         ]
+      }
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        buzz: {
+          ...state.buzz,
+          comments: [action.payload, ...state.buzz.comments]
+        }
       }
     default:
       return state;

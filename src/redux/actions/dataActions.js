@@ -9,7 +9,8 @@ import {
   SET_ERRORS,
   POST_BUZZ,
   SET_BUZZ,
-  STOP_LOADING
+  STOP_LOADING,
+  SUBMIT_COMMENT
 } from "../types";
 import axios from "axios";
 
@@ -34,8 +35,9 @@ export const getBuzzes = () => dispatch => {
 
 //get buzz
 export const getBuzz = buzzId => dispatch => {
-  dispatch({ type: LOADING_UI});
-  axios.get(`/buzzes/${buzzId}`)
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/buzzes/${buzzId}`)
     .then(res => {
       dispatch({
         type: SET_BUZZ,
@@ -45,27 +47,28 @@ export const getBuzz = buzzId => dispatch => {
     })
     .catch(err => {
       console.log(err);
-    })
-}
+    });
+};
 
 // post buzz
 export const postBuzz = newBuzz => dispatch => {
   dispatch({ type: LOADING_UI });
-  axios.post('/buzzes', newBuzz)
+  axios
+    .post("/buzzes", newBuzz)
     .then(res => {
       dispatch({
         type: POST_BUZZ,
         payload: res.data
       });
-      dispatch({ type: CLEAR_ERRORS});
+      dispatch(clearErrors());
     })
     .catch(err => {
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data
-      })
+      });
     });
-}
+};
 
 //like buzz
 export const likeBuzz = buzzId => dispatch => {
@@ -93,6 +96,25 @@ export const unlikeBuzz = buzzId => dispatch => {
     .catch(err => console.log(err));
 };
 
+//post comment
+export const submitComment = (buzzId, commentData) => dispatch => {
+  axios
+    .post(`/buzzes/${buzzId}/comments`, commentData)
+    .then(res => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+//delete buzz
 export const deleteBuzz = buzzId => dispatch => {
   axios
     .delete(`/buzzes/${buzzId}`)
@@ -106,5 +128,5 @@ export const deleteBuzz = buzzId => dispatch => {
 };
 
 export const clearErrors = () => dispatch => {
-  dispatch({ type: CLEAR_ERRORS});
-}
+  dispatch({ type: CLEAR_ERRORS });
+};

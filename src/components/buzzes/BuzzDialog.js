@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 //MUI
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,7 +19,7 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import ChatIcon from "@material-ui/icons/Chat";
 //redux
 import { connect } from "react-redux";
-import { getBuzz } from "../../redux/actions/dataActions";
+import { getBuzz, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = theme => ({
   ...theme.toSpread,
@@ -57,6 +58,7 @@ class BuzzDialog extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -79,7 +81,7 @@ class BuzzDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={10}>
+      <Grid container spacing={16}>
         <Grid item sm={5}>
           <img src={userImage} alt="profile" className={classes.profileImage} />
         </Grid>
@@ -106,6 +108,7 @@ class BuzzDialog extends Component {
           <span>{commentCount} comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
+        <CommentForm buzzId={buzzId} />
         <Comments comments={comments} />
       </Grid>
     );
@@ -145,7 +148,8 @@ BuzzDialog.propTypes = {
   buzzId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   buzz: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -154,7 +158,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getBuzz
+  getBuzz,
+  clearErrors
 };
 
 export default connect(
