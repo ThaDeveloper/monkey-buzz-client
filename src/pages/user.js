@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Buzz from "../components/buzzes/Buzz";
 import StaticProfile from "../components/profile/StaticProfile";
+import BuzzSkeleton from "../utils/BuzzSkeleton";
+import ProfileSkeleton from "../utils/ProfileSkeleton";
+//mui
 import Grid from "@material-ui/core/Grid";
 
 import { connect } from "react-redux";
@@ -36,7 +39,7 @@ class user extends Component {
     const { buzzes, loading } = this.props.data;
     const { buzzIdParam } = this.state;
     const buzzesMarkup = loading ? (
-      <p>Loading ... </p>
+      <BuzzSkeleton />
     ) : buzzes === null ? (
       <p> No buzzes for this user</p>
     ) : !buzzIdParam ? (
@@ -56,7 +59,7 @@ class user extends Component {
         </Grid>
         <Grid item sm={4} xs={12}>
           {this.state.profile === null ? (
-            <p> Loading profile ...</p>
+            <ProfileSkeleton />
           ) : (
             <StaticProfile profile={this.state.profile} />
           )}

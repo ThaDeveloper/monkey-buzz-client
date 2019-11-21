@@ -6,6 +6,8 @@ import { getBuzzes } from '../redux/actions/dataActions';
 
 import Buzz from '../components/buzzes/Buzz';
 import Profile from '../components/profile/Profile';
+import BuzzSkeleton from "../utils/BuzzSkeleton";
+
 
 class home extends Component {
     componentDidMount(){
@@ -15,7 +17,7 @@ class home extends Component {
         const { buzzes, loading } = this.props.data;
         let recentBuzzesMarkup = !loading ? (
             buzzes.map(buzz => <Buzz key={buzz.buzzId} buzz={buzz}/>)
-        ): <p>Loading...</p>
+        ): <BuzzSkeleton />
         return (
             <Grid container spacing={10}>
                 <Grid item sm={8} xs={12}>
