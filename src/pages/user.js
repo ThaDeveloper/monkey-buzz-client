@@ -10,11 +10,15 @@ import { getUserData } from "../redux/actions/dataActions";
 
 class user extends Component {
   state = {
-    profile: null
+    profile: null,
+    buzzIdParam: null
   };
 
   componentDidMount() {
     const handle = this.props.match.params.handle;
+    const buzzId = this.props.match.params.buzzId;
+
+    if (buzzId) this.setState({ buzzIdParam: buzzId });
     this.props.getUserData(handle);
     axios
       .get(`/user/${handle}`)
@@ -30,13 +34,21 @@ class user extends Component {
 
   render() {
     const { buzzes, loading } = this.props.data;
+    const { buzzIdParam } = this.state;
     const buzzesMarkup = loading ? (
       <p>Loading ... </p>
     ) : buzzes === null ? (
       <p> No buzzes for this user</p>
-    ) : (
+    ) : !buzzIdParam ? (
       buzzes.map(buzz => <Buzz key={buzz.buzzId} buzz={buzz} />)
+    ) : (
+      buzzes.map(buzz => {
+        if (buzz.buzzId !== buzzIdParam)
+          return <Buzz key={buzz.buzzId} buzz={buzz} />;
+        else return <Buzz key={buzz.buzzId} buzz={buzz} openDialog />;
+      })
     );
+
     return (
       <Grid container spacing={10}>
         <Grid item sm={8} xs={12}>
@@ -44,7 +56,7 @@ class user extends Component {
         </Grid>
         <Grid item sm={4} xs={12}>
           {this.state.profile === null ? (
-            <pd> Loading profile ...</pd>
+            <p> Loading profile ...</p>
           ) : (
             <StaticProfile profile={this.state.profile} />
           )}

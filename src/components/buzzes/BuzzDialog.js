@@ -49,14 +49,30 @@ const styles = theme => ({
 
 class BuzzDialog extends Component {
   state = {
-    open: false
+    open: false,
+    odlPath: "",
+    newPath: ""
   };
 
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleOpen();
+    }
+  }
+
   handleOpen = () => {
-    this.setState({ open: true });
+    let odlPath = window.location.pathname;
+    const { userHandle, buzzId } = this.props;
+    const newPath = `/user/${userHandle}/buzzes/${buzzId}`;
+
+    if (odlPath === newPath) odlPath = `/user/${userHandle}`;
+    window.history.pushState(null, null, newPath);
+
+    this.setState({ open: true, odlPath, newPath });
     this.props.getBuzz(this.props.buzzId);
   };
   handleClose = () => {
+    window.history.pushState(null, null, this.state.odlPath);
     this.setState({ open: false });
     this.props.clearErrors();
   };
@@ -81,7 +97,7 @@ class BuzzDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={10}>
         <Grid item sm={5}>
           <img src={userImage} alt="profile" className={classes.profileImage} />
         </Grid>

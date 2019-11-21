@@ -81,7 +81,11 @@ export class Buzz extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <BuzzDialog buzzId={buzzId} userHandle={userHandle} />
+          <BuzzDialog
+            buzzId={buzzId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          />
         </CardContent>
       </Card>
     );
@@ -91,7 +95,8 @@ export class Buzz extends Component {
 Buzz.propTypes = {
   user: PropTypes.object.isRequired,
   buzz: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
