@@ -21,7 +21,8 @@ import user from "./pages/user";
 
 const theme = createMuiTheme(themeFile);
 
-// axios.defaults.baseURL="https://europe-west1-monkey-buzz-2019.cloudfunctions.net/api";
+axios.defaults.baseURL =
+  "https://europe-west1-monkey-buzz-2019.cloudfunctions.net/api";
 
 const token = localStorage.FBIdToken;
 if (token) {
