@@ -4,7 +4,8 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   LIKE_BUZZ,
-  UNLIKE_BUZZ
+  UNLIKE_BUZZ,
+  MARK_NOTIFICATIONS_READ
 } from "../types";
 
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
   loading: false,
   credentials: {},
   likes: [],
-  notificaions: []
+  notifications: []
 };
 
 export default function(state = initialState, action) {
@@ -50,6 +51,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         likes: state.likes.filter(like => like.buzzId !== action.payload.buzzId)
+      };
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach(not => (not.read = true));
+      return {
+        ...state
       };
     default:
       return state;
