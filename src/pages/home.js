@@ -1,35 +1,43 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+import { getBuzzes } from '../redux/actions/dataActions';
 
-import Buzz from '../components/Buzz';
+import Buzz from '../components/buzzes/Buzz';
+import Profile from '../components/profile/Profile';
+import BuzzSkeleton from "../utils/BuzzSkeleton";
 
-export default class Home extends Component {
-    state = {
-        buzzes: null
-    }
+
+class home extends Component {
     componentDidMount(){
-        axios.get('/buzzes')
-        .then(res =>{
-            this.setState({
-                buzzes: res.data
-            })
-        })
-        .catch(err => console.log(err))
+        this.props.getBuzzes();
     }
     render() {
-        let recentBuzzesMarkup = this.state.buzzes ? (
-            this.state.buzzes.map(buzz => <Buzz key={buzz.buzzId} buzz={buzz}/>)
-        ): <p>Loading...</p>
+        const { buzzes, loading } = this.props.data;
+        let recentBuzzesMarkup = !loading ? (
+            buzzes.map(buzz => <Buzz key={buzz.buzzId} buzz={buzz}/>)
+        ): <BuzzSkeleton />
         return (
             <Grid container spacing={10}>
                 <Grid item sm={8} xs={12}>
                     {recentBuzzesMarkup}
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                    <p>Profile</p>
+                    <Profile />
                 </Grid>
             </Grid>
-        )
+        );
     }
 }
+
+home.propTypes = {
+    getBuzzes: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    data: state.data
+});
+
+export default connect(mapStateToProps, { getBuzzes })(home);
